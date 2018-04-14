@@ -3,6 +3,7 @@ import requests
 import const
 import json
 from time import sleep
+from datetime import datetime
 
 global last_update_id
 last_update_id = 0
@@ -39,15 +40,13 @@ def sendMessage(chat_id, text="..."):
 def getWeather():
     url = "http://api.openweathermap.org/data/2.5/forecast?id=515012&APPID=b9504d6840b98ed4f7a3ce397358d42b"
     url_json = requests.get(url).json()
-    morning_temp = url_json["list"][1]["main"]["temp"] - 273
-    evening_temp = url_json["list"][2]["main"]["temp"] - 273
-    weather = url_json["list"][1]["weather"][0]["description"]
+    now_temp = url_json["list"][0]["main"]["temp"] - 273
+    weather = url_json["list"][0]["weather"][0]["description"]
     wind = url_json["list"][1]["wind"]["speed"]
-    date = "Today"
+    date = url_json["list"][0]["dt_txt"]
 
     message = {"temp" :
-                   {"morning_temp" : morning_temp,
-                    "evening_temp" : evening_temp},
+                   {"now_temp" : now_temp},
                "weather" : weather,
                "wind" : wind,
                "date" : date
@@ -63,10 +62,10 @@ def main():
             text = answer["text"]
 
             if "Погода" or "погода" in text:
-                sendMessage(chat_id, "Температура утром - " + str(int(data["temp"]["morning_temp"])) + "°С\n"
-                            + "Температура вечером - " + str(int(data["temp"]["evening_temp"])) + "°С\n"
+                sendMessage(chat_id, "Текущая температура - " + str(int(data["temp"]["now_temp"])) + "°С\n"
                             + "Состояние неба - " + str(data["weather"] + "\n")
-                            + "Скорость ветра - " + str(data["wind"]) + "м/с\n")
+                            + "Скорость ветра - " + str(data["wind"]) + "м/с\n"
+                            + "Текущая дата и время прогноза - " + str(data["date"] + "\n"))
         else:
             continue
 
