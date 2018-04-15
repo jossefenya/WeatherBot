@@ -1,0 +1,26 @@
+{
+  "ok": true,
+  "result": [
+    {
+      "update_id": 940597941,
+      "message": {
+        "message_id": 3,
+        "from": {
+          "id": 164718488,
+          "is_bot": false,
+          "first_name": "Sergey Shekotihin",
+          "username": "sirizhka",
+          "language_code": "ru-RU"
+        },
+        "chat": {
+          "id": 164718488,
+          "first_name": "Sergey Shekotihin",
+          "username": "sirizhka",
+          "type": "private"
+        },
+        "date": 1523615323,
+        "text": "Yes"
+      }
+    }
+  ]
+}
