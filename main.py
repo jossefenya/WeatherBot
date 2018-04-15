@@ -20,8 +20,14 @@ def main():
             data = bot.getWeather()
             chat_id = answer["chat_id"]
             text = answer["text"]
-
-            if hour % 3 == 0:
+            name = answer["name"]
+            if text == "/start":
+                bot.sendMessage(chat_id, "Hello, " + str(name) + " . That's a weather bot.\n")
+                bot.sendMessage(chat_id, "Текущая температура - " + str(int(data["temp"]["now_temp"])) + "°С\n"
+                                + "Состояние неба - " + str(data["weather"] + "\n")
+                                + "Скорость ветра - " + str(data["wind"]) + "м/с\n"
+                                + "Текущая дата и время прогноза - " + str(data["date"] + "\n"))
+            elif hour % 3 == 0 or "погода" or "Погода" in text:
                 bot.sendMessage(chat_id, "Текущая температура - " + str(int(data["temp"]["now_temp"])) + "°С\n"
                             + "Состояние неба - " + str(data["weather"] + "\n")
                             + "Скорость ветра - " + str(data["wind"]) + "м/с\n"
